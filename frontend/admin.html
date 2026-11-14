@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171613">
+    <meta name="description" content="Panel privado de administración de Luna Negra Joyas.">
+    <title>Administración | Luna Negra Joyas</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <script type="module" src="/assets/js/admin.js"></script>
+  </head>
+  <body class="admin-page">
+    <header class="admin-header">
+      <a class="brand-lockup" href="/" aria-label="Volver a Luna Negra Joyas">
+        <span class="brand-mark" aria-hidden="true">LN</span>
+        <span class="brand-name">LUNA NEGRA <small>ADMINISTRACIÓN</small></span>
+      </a>
+      <a class="admin-back-link" href="/">Volver al sitio <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main class="admin-main">
+      <section class="login-panel" id="login-view" aria-labelledby="login-title">
+        <div class="login-decor" aria-hidden="true"><span></span><span></span></div>
+        <p class="eyebrow eyebrow-light">ESPACIO PRIVADO</p>
+        <h1 id="login-title">Bienvenida,<br><em>bienvenido.</em></h1>
+        <p class="login-copy">Ingresa con tu cuenta para administrar el catálogo.</p>
+        <div class="notice notice-error" id="login-error" role="alert" hidden></div>
+        <form id="login-form" class="form-stack">
+          <label for="login-email">Correo electrónico</label>
+          <input id="login-email" name="email" type="email" autocomplete="username" maxlength="254" required>
+          <label for="login-password">Contraseña</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" maxlength="128" required>
+          <button class="button button-gold button-wide" type="submit">Ingresar <span aria-hidden="true">→</span></button>
+        </form>
+        <a class="login-home-link" href="/">← Regresar al catálogo</a>
+      </section>
+
+      <section class="dashboard" id="dashboard-view" hidden>
+        <div class="dashboard-heading">
+          <div>
+            <p class="eyebrow">PANEL DE CONTROL</p>
+            <h1>Hola, <em id="admin-name">equipo</em>.</h1>
+            <p class="dashboard-subtitle">Administra tus piezas y mantén el catálogo al día.</p>
+          </div>
+          <div class="dashboard-user">
+            <span class="role-badge" id="admin-role"></span>
+            <button class="button button-outline" id="logout-button" type="button">Cerrar sesión</button>
+          </div>
+        </div>
+        <div class="notice" id="dashboard-notice" role="status" aria-live="polite" hidden></div>
+
+        <nav class="dashboard-tabs" aria-label="Secciones de administración">
+          <button class="dashboard-tab is-active" type="button" data-panel="products-panel" aria-selected="true">Productos</button>
+          <button class="dashboard-tab" type="button" data-panel="categories-panel" aria-selected="false">Categorías</button>
+          <button class="dashboard-tab" type="button" data-panel="users-panel" id="users-tab" aria-selected="false" hidden>Cuentas</button>
+        </nav>
+
+        <section class="dashboard-panel" id="products-panel" aria-labelledby="products-heading">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">TU INVENTARIO</p>
+              <h2 id="products-heading">Productos</h2>
+            </div>
+            <button class="button button-dark" id="new-product-button" type="button">+ Nuevo producto</button>
+          </div>
+          <form class="catalog-filters admin-filters" id="admin-product-filters">
+            <label class="filter-search">
+              <span class="visually-hidden">Buscar productos</span>
+              <input id="admin-product-search" name="q" type="search" maxlength="100" placeholder="Buscar por nombre">
+            </label>
+            <label>
+              <span class="visually-hidden">Filtrar por publicación</span>
+              <select id="admin-publication-filter" name="publicationState">
+                <option value="">Todos los estados</option>
+                <option value="DRAFT">Borrador</option>
+                <option value="PUBLISHED">Publicado</option>
+                <option value="HIDDEN">Oculto</option>
+              </select>
+            </label>
+            <label>
+              <span class="visually-hidden">Filtrar por visibilidad</span>
+              <select id="admin-active-filter" name="isActive">
+                <option value="">Todos los productos</option>
+                <option value="true">Activos</option>
+                <option value="false">Inactivos</option>
+              </select>
+            </label>
+            <button class="button button-outline" type="submit">Filtrar</button>
+          </form>
+          <div class="notice notice-error" id="products-error" role="alert" hidden></div>
+          <div class="table-wrap">
+            <table class="admin-table">
+              <thead><tr><th>Producto</th><th>Categoría</th><th>Disponibilidad</th><th>Estado</th><th>Acciones</th></tr></thead>
+              <tbody id="products-table-body"></tbody>
+            </table>
+          </div>
+          <p class="table-empty" id="products-empty" hidden>No hay productos para mostrar.</p>
+          <nav class="catalog-pagination admin-pagination" id="products-pagination" aria-label="Páginas de productos" hidden>
+            <button class="button button-outline" id="products-previous" type="button">Anterior</button>
+            <span id="products-page-label"></span>
+            <button class="button button-outline" id="products-next" type="button">Siguiente</button>
+          </nav>
+
+          <form class="editor-form" id="product-form" hidden>
+            <div class="panel-heading editor-heading">
+              <div><p class="eyebrow">DETALLES DEL CATÁLOGO</p><h3 id="product-form-heading">Nuevo producto</h3></div>
+              <button class="icon-button" id="cancel-product-edit" type="button" aria-label="Cerrar formulario">×</button>
+            </div>
+            <div class="notice notice-error" id="product-form-error" role="alert" hidden></div>
+            <input id="product-id" type="hidden">
+            <div class="form-grid">
+              <label>Nombre<input id="product-name" type="text" minlength="2" maxlength="150" required></label>
+              <label>Categoría<select id="product-category" required><option value="">Selecciona una categoría</option></select></label>
+              <label class="form-grid-wide">Descripción<textarea id="product-description" rows="4" maxlength="4000" required></textarea></label>
+              <label>Material<input id="product-material" type="text" maxlength="120"></label>
+              <label>Precio<input id="product-price" type="number" min="0" max="9999999999.99" step="0.01"></label>
+              <label>Moneda<input id="product-currency" type="text" value="COP" maxlength="3" pattern="[A-Z]{3}" required></label>
+              <label>Disponibilidad
+                <select id="product-availability">
+                  <option value="AVAILABLE">Disponible</option>
+                  <option value="MADE_TO_ORDER">Sobre pedido</option>
+                  <option value="OUT_OF_STOCK">Agotado</option>
+                </select>
+              </label>
+              <label>Publicación
+                <select id="product-publication">
+                  <option value="DRAFT">Borrador</option>
+                  <option value="PUBLISHED">Publicado</option>
+                  <option value="HIDDEN">Oculto</option>
+                </select>
+              </label>
+            </div>
+            <label class="checkbox-label"><input id="product-show-price" type="checkbox"> Mostrar precio en el catálogo</label>
+            <label class="checkbox-label"><input id="product-active" type="checkbox" checked> Producto activo y visible en el catálogo</label>
+            <section class="product-images-manager" aria-labelledby="product-images-heading">
+              <div>
+                <h4 id="product-images-heading">Fotografías del producto</h4>
+                <p class="form-hint" id="product-image-status" role="status">Verificando configuración de Cloudinary…</p>
+              </div>
+              <label class="image-file-label" for="product-images">Agregar fotografías</label>
+              <input id="product-images" type="file" accept="image/jpeg,image/png,image/webp" multiple disabled>
+              <div class="product-image-list" id="product-image-list" aria-live="polite"></div>
+            </section>
+            <div class="form-actions">
+              <button class="button button-dark" type="submit">Guardar producto</button>
+              <button class="button button-outline" id="cancel-product-button" type="button">Cancelar</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="dashboard-panel" id="categories-panel" aria-labelledby="categories-heading" hidden>
+          <div class="panel-heading">
+            <div><p class="eyebrow">ORGANIZA TU CATÁLOGO</p><h2 id="categories-heading">Categorías</h2></div>
+          </div>
+          <div class="category-layout">
+            <form class="editor-form category-form" id="category-form">
+              <h3>Crear categoría</h3>
+              <div class="notice notice-error" id="category-error" role="alert" hidden></div>
+              <label>Nombre<input id="category-name" type="text" minlength="2" maxlength="100" required></label>
+              <label>Descripción <span class="optional-label">opcional</span><textarea id="category-description" rows="3" maxlength="500"></textarea></label>
+              <button class="button button-dark" type="submit">Guardar categoría</button>
+            </form>
+            <div class="category-list-wrap">
+              <h3>Categorías existentes</h3>
+              <div class="notice notice-error" id="categories-error" role="alert" hidden></div>
+              <ul class="category-list" id="category-list"></ul>
+              <p class="table-empty" id="categories-empty" hidden>Aún no hay categorías.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-panel" id="users-panel" aria-labelledby="users-heading" hidden>
+          <div class="panel-heading">
+            <div><p class="eyebrow">ACCESOS PRIVADOS</p><h2 id="users-heading">Cuentas</h2></div>
+          </div>
+          <form class="editor-form user-create-form" id="user-form">
+            <h3>Crear cuenta</h3>
+            <div class="notice notice-error" id="user-form-error" role="alert" hidden></div>
+            <div class="form-grid">
+              <label>Nombre<input id="user-name" type="text" minlength="2" maxlength="120" required></label>
+              <label>Correo electrónico<input id="user-email" type="email" maxlength="254" required></label>
+              <label>Contraseña<input id="user-password" type="password" minlength="12" maxlength="128" autocomplete="new-password" required></label>
+              <label>Rol<select id="user-role"><option value="EDITOR">Editor</option><option value="ADMIN">Administrador</option></select></label>
+            </div>
+            <button class="button button-dark" type="submit">Crear cuenta</button>
+          </form>
+          <div class="notice notice-error" id="users-error" role="alert" hidden></div>
+          <div class="table-wrap">
+            <table class="admin-table users-table">
+              <thead><tr><th>Cuenta</th><th>Rol</th><th>Estado</th><th>Acciones</th></tr></thead>
+              <tbody id="users-table-body"></tbody>
+            </table>
+          </div>
+          <p class="table-empty" id="users-empty" hidden>No hay cuentas para mostrar.</p>
+          <nav class="catalog-pagination admin-pagination" id="users-pagination" aria-label="Páginas de cuentas" hidden>
+            <button class="button button-outline" id="users-previous" type="button">Anterior</button>
+            <span id="users-page-label"></span>
+            <button class="button button-outline" id="users-next" type="button">Siguiente</button>
+          </nav>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

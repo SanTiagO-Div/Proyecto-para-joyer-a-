@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171613">
+    <meta name="description" content="Explora el catálogo de Luna Negra Joyas: piezas especiales para acompañar tus momentos.">
+    <title>Luna Negra Joyas | Piezas con carácter</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <script type="module" src="/assets/js/catalog.js"></script>
+  </head>
+  <body class="storefront">
+    <header class="site-header">
+      <nav class="navbar container site-nav" aria-label="Navegación principal">
+        <a class="brand-lockup" href="/" aria-label="Luna Negra Joyas, inicio">
+          <span class="brand-mark" aria-hidden="true">LN</span>
+          <span class="brand-name">LUNA NEGRA <small>JOYAS</small></span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" aria-label="Abrir navegación">
+          <span></span><span></span>
+        </button>
+        <div class="site-nav-links" id="site-navigation">
+          <a href="#coleccion">Colección</a>
+          <a href="#esencia">Nuestra esencia</a>
+          <a href="#contacto">Contacto</a>
+          <a class="nav-admin-link" href="/admin.html">Acceso privado</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero-section" id="inicio">
+        <div class="hero-orbit hero-orbit-one" aria-hidden="true"></div>
+        <div class="hero-orbit hero-orbit-two" aria-hidden="true"></div>
+        <div class="container hero-content">
+          <p class="eyebrow eyebrow-light">LUNA NEGRA JOYAS <span></span> PIEZAS CON CARÁCTER</p>
+          <h1>Un brillo que<br><em>habla de ti.</em></h1>
+          <p class="hero-copy">Encuentra esa pieza especial que acompaña tu historia, hoy y siempre.</p>
+          <a class="button button-gold" href="#coleccion">Descubrir la colección <span aria-hidden="true">↗</span></a>
+          <p class="hero-note">Joyería para momentos que merecen quedarse.</p>
+        </div>
+        <div class="hero-figure" aria-hidden="true">
+          <div class="hero-halo"></div>
+          <div class="hero-stone"></div>
+          <div class="hero-ring"></div>
+          <span class="hero-spark hero-spark-one">✦</span>
+          <span class="hero-spark hero-spark-two">✧</span>
+        </div>
+        <div class="hero-index" aria-hidden="true">01 / LUNA NEGRA</div>
+      </section>
+
+      <section class="collection-section section-space" id="coleccion">
+        <div class="container">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">LA SELECCIÓN</p>
+              <h2>Piezas para <em>llevar cerca.</em></h2>
+            </div>
+            <p class="section-intro">Explora el catálogo y encuentra una pieza que se sienta como tuya.</p>
+          </div>
+
+          <form class="catalog-filters" id="catalog-filters">
+            <label class="filter-search">
+              <span class="visually-hidden">Buscar en el catálogo</span>
+              <input id="catalog-search" name="q" type="search" maxlength="100" placeholder="¿Qué estás buscando?">
+              <span aria-hidden="true">⌕</span>
+            </label>
+            <label>
+              <span class="visually-hidden">Filtrar por categoría</span>
+              <select id="category-filter" name="categoryId">
+                <option value="">Todas las categorías</option>
+              </select>
+            </label>
+            <label>
+              <span class="visually-hidden">Filtrar por disponibilidad</span>
+              <select id="availability-filter" name="availability">
+                <option value="">Toda disponibilidad</option>
+                <option value="AVAILABLE">Disponible</option>
+                <option value="MADE_TO_ORDER">Sobre pedido</option>
+                <option value="OUT_OF_STOCK">Agotado</option>
+              </select>
+            </label>
+            <button class="button button-dark filter-submit" type="submit">Buscar</button>
+          </form>
+
+          <p class="catalog-warning" id="category-warning" role="status" hidden></p>
+          <p class="catalog-status" id="catalog-status" role="status" aria-live="polite">Cargando colección…</p>
+          <div class="product-grid" id="product-grid" aria-busy="true"></div>
+          <div class="catalog-empty" id="catalog-empty" hidden>
+            <span class="empty-moon" aria-hidden="true"></span>
+            <h3>Aún no encontramos esa pieza.</h3>
+            <p>Prueba con otros términos o cambia los filtros.</p>
+          </div>
+          <div class="catalog-error" id="catalog-error" role="alert" hidden>
+            <p>No pudimos cargar el catálogo.</p>
+            <button class="button button-outline" id="catalog-retry" type="button">Intentar de nuevo</button>
+          </div>
+          <nav class="catalog-pagination" id="catalog-pagination" aria-label="Páginas del catálogo" hidden>
+            <button class="button button-outline" id="page-previous" type="button">Anterior</button>
+            <span id="page-label"></span>
+            <button class="button button-outline" id="page-next" type="button">Siguiente</button>
+          </nav>
+        </div>
+      </section>
+
+      <section class="essence-section section-space" id="esencia">
+        <div class="container essence-layout">
+          <div class="essence-art" aria-hidden="true">
+            <span class="essence-orbit"></span>
+            <span class="essence-crescent"></span>
+            <span class="essence-star">✦</span>
+            <span class="essence-caption">L · N</span>
+          </div>
+          <div class="essence-copy">
+            <p class="eyebrow eyebrow-light">HECHA PARA SER TUYA</p>
+            <h2>La belleza está<br>en <em>los detalles.</em></h2>
+            <p>En Luna Negra creemos que una joya puede guardar un recuerdo, marcar un comienzo o simplemente hacerte sentir tú. Descubre piezas pensadas para acompañarte a tu manera.</p>
+            <a class="text-link" href="#coleccion">Explorar el catálogo <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section section-space" id="contacto">
+        <div class="container contact-layout">
+          <div>
+            <p class="eyebrow">HABLEMOS</p>
+            <h2>Una pieza especial<br>merece una <em>conversación.</em></h2>
+          </div>
+          <div class="contact-actions">
+            <a class="button button-dark" id="contact-whatsapp" href="#" target="_blank" rel="noopener noreferrer" hidden>
+              Escríbenos por WhatsApp <span aria-hidden="true">↗</span>
+            </a>
+            <p class="contact-status" id="contact-status" role="status">Cargando canales de contacto…</p>
+            <nav class="social-links" aria-label="Redes sociales">
+              <a data-social-link="instagram" href="#" target="_blank" rel="noopener noreferrer" hidden>Instagram</a>
+              <a data-social-link="facebook" href="#" target="_blank" rel="noopener noreferrer" hidden>Facebook</a>
+              <a data-social-link="tiktok" href="#" target="_blank" rel="noopener noreferrer" hidden>TikTok</a>
+            </nav>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a class="brand-lockup brand-lockup-footer" href="#inicio">
+          <span class="brand-mark" aria-hidden="true">LN</span>
+          <span class="brand-name">LUNA NEGRA <small>JOYAS</small></span>
+        </a>
+        <p>Una pieza, una historia.</p>
+        <div class="footer-meta">
+          <nav class="footer-social-links" aria-label="Redes sociales">
+            <a data-social-link="instagram" href="#" target="_blank" rel="noopener noreferrer" hidden>Instagram</a>
+            <a data-social-link="facebook" href="#" target="_blank" rel="noopener noreferrer" hidden>Facebook</a>
+            <a data-social-link="tiktok" href="#" target="_blank" rel="noopener noreferrer" hidden>TikTok</a>
+          </nav>
+          <span class="footer-copy">© <span id="current-year"></span> Luna Negra Joyas</span>
+        </div>
+      </div>
+    </footer>
+
+    <dialog class="product-dialog" id="product-dialog" aria-labelledby="dialog-title">
+      <button class="dialog-close" id="dialog-close" type="button" aria-label="Cerrar detalle">×</button>
+      <div class="dialog-image-wrap" id="dialog-image-wrap"></div>
+      <div class="dialog-content">
+        <p class="eyebrow" id="dialog-category"></p>
+        <h2 id="dialog-title"></h2>
+        <p class="dialog-description" id="dialog-description"></p>
+        <p class="dialog-material" id="dialog-material"></p>
+        <p class="dialog-availability" id="dialog-availability"></p>
+        <p class="dialog-price" id="dialog-price"></p>
+        <a class="button button-dark dialog-whatsapp" id="dialog-whatsapp" href="#" target="_blank" rel="noopener noreferrer" hidden>
+          Consultar por WhatsApp <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </dialog>
+  </body>
+</html>
